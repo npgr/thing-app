@@ -22,16 +22,25 @@ const QUERY = gql`
       }
       license
       description
+      added
+      modified
+      default_image {
+        url
+      }
     }
   }
 `
+
+const formatedDate = stringDate => {
+  const date = new Date(stringDate)
+  return date.toLocaleDateString()
+}
 
 export default ({ match: { params } }) => {
   // Go top when mount
   const { loading, data, error } = useQuery(QUERY, {
     variables: { id: parseInt(params.id) }
   })
-  console.log('data: ', data)
   error && console.log('error: ', error)
   return (
     <Container style={{ marginTop: '60px' }}>
@@ -50,10 +59,16 @@ export default ({ match: { params } }) => {
         data.thing && (
           <List size='large'>
             <ListItem label='Id:' value={data.thing.id} />
-            <ListItem label='Name:' value={data.thing.name} />
+            <ListItem label='Thing Name:' value={data.thing.name} />
             <ListItem label='License:' value={data.thing.license} />
-            <ListItem label='Creator Name:' value={data.thing.creator.name} />
+            <ListItem label='Creator:' value={data.thing.creator.name} />
+            <ListItem label='Added:' value={formatedDate(data.thing.added)} />
+            <ListItem
+              label='Modified:'
+              value={formatedDate(data.thing.modified)}
+            />
             <ListItem label='Description:' value={data.thing.description} />
+            <ListItem label='Image:' image={data.thing.default_image.url} />
           </List>
         )
       )}
