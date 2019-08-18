@@ -1,20 +1,17 @@
-import React, { Fragment } from 'react'
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect
-} from 'react-router-dom'
+import React from 'react'
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom'
+import { Menu } from 'semantic-ui-react'
 import Explore from './Explore'
 import Detail from './Detail'
 
 export default () => (
   <Router>
-    <h2>Thing App</h2>
-    <Link to='/'>Explore</Link>
-    <div>
-      <Link to='/detail/xx'>Detail</Link>
-    </div>
+    <Menu fixed='top'>
+      <Menu.Header style={{ margin: '10px' }}>
+        <h3>Thing App</h3>
+      </Menu.Header>
+    </Menu>
+
     <Route exact path='/' component={Explore} />
     <Route path='/detail/:id' component={Detail} />
     <Redirect to='/' />
