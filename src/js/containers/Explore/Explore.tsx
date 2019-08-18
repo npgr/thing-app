@@ -2,7 +2,14 @@ import React from 'react'
 import { withRouter } from 'react-router-dom'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
-import { Container, Grid, Select, Dimmer, Loader } from 'semantic-ui-react'
+import {
+  Container,
+  Grid,
+  Select,
+  Dimmer,
+  Loader,
+  Message
+} from 'semantic-ui-react'
 import Card from '../../Components/Card'
 
 const FIELDS = 'id, name, thumbnail, creator { name }'
@@ -39,6 +46,7 @@ const selectOptions = [
 ]
 
 export default withRouter(({ history }) => {
+  // useEffect didMount (use state ?)
   const { loading, data, error } = useQuery(QUERY)
   error && console.log('error: ', error)
   return (
@@ -47,6 +55,7 @@ export default withRouter(({ history }) => {
         options={selectOptions}
         defaultValue={selectOptions[0].value}
         style={{ marginBottom: '10px' }}
+        disabled={!!error}
         //onChange={loadRespectiveData}
       />
       <Grid columns={5}>
@@ -54,6 +63,12 @@ export default withRouter(({ history }) => {
           <Dimmer active inverted style={{ marginTop: '50px' }}>
             <Loader size='medium'>Loading</Loader>
           </Dimmer>
+        ) : error ? (
+          <Message negative style={{ marginTop: '80px' }}>
+            <Message.Header>
+              An Error has ocurred during the load of Data !!!
+            </Message.Header>
+          </Message>
         ) : (
           data &&
           data.popular &&
