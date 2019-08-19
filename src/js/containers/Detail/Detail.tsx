@@ -68,7 +68,9 @@ export default ({ match: { params } }) => {
               value={formatedDate(data.thing.modified)}
             />
             <ListItem label='Description:' value={data.thing.description} />
-            <ListItem label='Image:' image={data.thing.default_image.url} />
+            {data.thing.default_image && (
+              <ListItem label='Image:' image={data.thing.default_image.url} />
+            )}
           </List>
         )
       )}
