@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
@@ -40,24 +40,30 @@ const QUERY_POPULAR = gql`
   }
 `
 const selectOptions = [
-  { key: 'pop', value: 'pop', text: 'Popular' },
-  { key: 'new', value: 'new', text: 'Newest' },
-  { key: 'fea', value: 'fea', text: 'Featured' }
+  { key: 'pop', value: 'popular', text: 'Popular' },
+  { key: 'new', value: 'newest', text: 'Newest' },
+  { key: 'fea', value: 'featured', text: 'Featured' }
 ]
 
 export default withRouter(({ history }) => {
-  // useEffect didMount (use state ?)
+  const defaultValue = selectOptions[0].value
+  const [selectedOption, selectOption] = useState(defaultValue)
   const { loading, data, error } = useQuery(QUERY)
   error && console.log('error: ', error)
   return (
     <Container style={{ marginTop: '50px' }}>
       <Select
         options={selectOptions}
-        defaultValue={selectOptions[0].value}
+        defaultValue={defaultValue}
         style={{ marginBottom: '10px' }}
         disabled={!!error}
-        //onChange={loadRespectiveData}
+        onChange={(e, { value }: { value: string }) => selectOption(value)}
       />
+      {data[selectedOption] && (
+        <span style={{ marginLeft: '15px' }}>
+          {`${data[selectedOption].length} Things`}
+        </span>
+      )}
       <Grid columns={5}>
         {loading ? (
           <Dimmer active inverted style={{ marginTop: '50px' }}>
@@ -71,8 +77,8 @@ export default withRouter(({ history }) => {
           </Message>
         ) : (
           data &&
-          data.popular &&
-          data.popular.map(
+          data[selectedOption] &&
+          data[selectedOption].map(
             ({ id, name, thumbnail, creator: { name: creatorName } }) => (
               <Grid.Column key={id}>
                 <Card
