@@ -51,15 +51,15 @@ export default withRouter(({ history }) => {
   const { loading, data, error } = useQuery(QUERY)
   error && console.log('error: ', error)
   return (
-    <Container style={{ marginTop: '50px' }}>
+    <Container>
       <Select
+        style={{ marginTop: '50px', marginBottom: '10px' }}
         options={selectOptions}
         defaultValue={defaultValue}
-        style={{ marginBottom: '10px' }}
         disabled={!!error}
         onChange={(e, { value }: { value: string }) => selectOption(value)}
       />
-      {data[selectedOption] && (
+      {data && data[selectedOption] && (
         <span style={{ marginLeft: '15px' }}>
           {`${data[selectedOption].length} Things`}
         </span>

@@ -43,13 +43,13 @@ export default ({ match: { params } }) => {
   })
   error && console.log('error: ', error)
   return (
-    <Container style={{ marginTop: '60px' }}>
+    <Container>
       {loading ? (
-        <Dimmer active inverted style={{ marginTop: '50px' }}>
+        <Dimmer active inverted style={{ marginTop: '110px' }}>
           <Loader size='medium'>Loading</Loader>
         </Dimmer>
       ) : error ? (
-        <Message negative style={{ marginTop: '80px' }}>
+        <Message negative style={{ marginTop: '140px' }}>
           <Message.Header>
             An Error has ocurred during the load of Data !!!
           </Message.Header>
@@ -57,7 +57,7 @@ export default ({ match: { params } }) => {
       ) : (
         data &&
         data.thing && (
-          <List size='large'>
+          <List size='large' style={{ marginTop: '60px' }}>
             <ListItem label='Id:' value={data.thing.id} />
             <ListItem label='Thing Name:' value={data.thing.name} />
             <ListItem label='License:' value={data.thing.license} />
