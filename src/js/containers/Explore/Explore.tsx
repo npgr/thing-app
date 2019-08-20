@@ -16,29 +16,13 @@ const FIELDS = 'id, name, thumbnail, creator { name }'
 
 const QUERY = gql`
   query {
+    validToken,
     featured { ${FIELDS} },
     newest { ${FIELDS} },
     popular { ${FIELDS} }
   }
 `
 
-const QUERY_FEATURED = gql`
-  query {
-    featured { ${FIELDS} }
-  }
-`
-
-const QUERY_NEWEST = gql`
-  query {
-    newest { ${FIELDS} }
-  }
-`
-
-const QUERY_POPULAR = gql`
-  query {
-    popular { ${FIELDS} }
-  }
-`
 const selectOptions = [
   { key: 'pop', value: 'popular', text: 'Popular' },
   { key: 'new', value: 'newest', text: 'Newest' },
@@ -49,6 +33,8 @@ export default withRouter(({ history }) => {
   const defaultValue = selectOptions[0].value
   const [selectedOption, selectOption] = useState(defaultValue)
   const { loading, data, error } = useQuery(QUERY)
+
+  !loading && !error && !data.validToken && history.push('/auth')
   error && console.log('error: ', error)
   return (
     <Container>
