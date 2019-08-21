@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { withRouter } from 'react-router-dom'
+import { RouteComponentProps } from 'react-router-dom'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import {
@@ -29,7 +29,7 @@ const selectOptions = [
   { key: 'fea', value: 'featured', text: 'Featured' }
 ]
 
-export default withRouter(({ history }) => {
+export default ({ history }: RouteComponentProps) => {
   const defaultValue = selectOptions[0].value
   const [selectedOption, selectOption] = useState(defaultValue)
   const { loading, data, error } = useQuery(QUERY)
@@ -82,4 +82,4 @@ export default withRouter(({ history }) => {
       </Grid>
     </Container>
   )
-})
+}

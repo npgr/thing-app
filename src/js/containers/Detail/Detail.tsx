@@ -1,4 +1,5 @@
 import React from 'react'
+import { RouteComponentProps } from 'react-router-dom'
 import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import {
@@ -31,13 +32,14 @@ const QUERY = gql`
   }
 `
 
-const formatedDate = stringDate => {
+const formatedDate = (stringDate: string): string => {
   const date = new Date(stringDate)
   return date.toLocaleDateString()
 }
 
-export default ({ match: { params } }) => {
-  // Go top when mount
+type TParams = { id: string }
+
+export default ({ match: { params } }: RouteComponentProps<TParams>) => {
   const { loading, data, error } = useQuery(QUERY, {
     variables: { id: parseInt(params.id) }
   })
