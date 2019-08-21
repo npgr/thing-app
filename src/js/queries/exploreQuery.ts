@@ -3,7 +3,7 @@ import gql from 'graphql-tag'
 const FIELDS = 'id, name, thumbnail, creator { name }'
 
 export default gql`
-  query {
+  query explore {
     validToken,
     featured { ${FIELDS} },
     newest { ${FIELDS} },

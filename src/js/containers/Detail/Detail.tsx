@@ -10,7 +10,9 @@ import {
   Message
 } from 'semantic-ui-react'
 import QUERY from '../../queries/detailQuery'
+import { Thing as thingQueryType } from '../../queries/types/Thing'
 import ListItem from '../../Components/ListItem'
+import { ApolloError } from 'apollo-client'
 
 const formatedDate = (stringDate: string): string => {
   const date = new Date(stringDate)
@@ -20,9 +22,15 @@ const formatedDate = (stringDate: string): string => {
 type TParams = { id: string }
 
 export default ({ match: { params } }: RouteComponentProps<TParams>) => {
-  const { loading, data, error } = useQuery(QUERY, {
-    variables: { id: parseInt(params.id) }
-  })
+  const {
+    loading,
+    data,
+    error
+  }: {
+    loading: boolean
+    data: thingQueryType
+    error?: ApolloError
+  } = useQuery(QUERY, { variables: { id: parseInt(params.id) } })
   error && console.log('error: ', error)
   return (
     <Container>
