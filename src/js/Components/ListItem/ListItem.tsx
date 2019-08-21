@@ -3,8 +3,8 @@ import { List, Image } from 'semantic-ui-react'
 
 interface Props {
   label: string
-  value: any
-  image: string
+  value?: any
+  image?: string
 }
 
 export default ({ label, value, image }: Props) => (

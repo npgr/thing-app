@@ -73,7 +73,6 @@ export default ({ history }: RouteComponentProps) => {
                   name={name}
                   thumbnail={thumbnail}
                   creatorName={creatorName}
-                  history={history}
                 />
               </Grid.Column>
             )
