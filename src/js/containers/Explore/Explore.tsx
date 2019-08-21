@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 import { useQuery } from '@apollo/react-hooks'
+import { ApolloError } from 'apollo-client'
 import {
   Container,
   Grid,
@@ -12,7 +13,6 @@ import {
 import Card from '../../Components/Card'
 import QUERY from '../../queries/exploreQuery'
 import { explore as exploreQueryType } from '../../queries/types/explore'
-import { ApolloError } from 'apollo-client'
 
 const selectOptions = [
   { key: 'pop', value: 'popular', text: 'Popular' },
@@ -20,19 +20,16 @@ const selectOptions = [
   { key: 'fea', value: 'featured', text: 'Featured' }
 ]
 
+interface queryType {
+  loading: boolean
+  data: exploreQueryType
+  error?: ApolloError
+}
+
 export default ({ history }: RouteComponentProps) => {
   const defaultValue = selectOptions[0].value
   const [selectedOption, selectOption] = useState(defaultValue)
-  const {
-    loading,
-    data,
-    error
-  }: {
-    loading: boolean
-    data: exploreQueryType
-    error?: ApolloError
-  } = useQuery(QUERY)
-
+  const { loading, data, error }: queryType = useQuery(QUERY)
   !loading && !error && !data.validToken && history.push('/auth')
   error && console.log('error: ', error)
   return (
