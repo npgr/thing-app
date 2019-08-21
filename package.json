@@ -4,6 +4,7 @@
   "description": "Design Manager App",
   "main": "index.js",
   "scripts": {
+    "apollo": "apollo",
     "start": "webpack-dev-server --mode development --inline --hot --open",
     "build": "webpack  --mode development"
   },
@@ -13,8 +14,11 @@
     "@babel/core": "^7.2.2",
     "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.3.1",
-    "@types/react": "^16.8.3",
-    "@types/react-dom": "^16.8.1",
+    "@types/graphql": "^14.2.3",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
+    "@types/react-router-dom": "^4.3.4",
+    "apollo": "^2.18.0",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.5",
     "css-loader": "^2.1.0",
