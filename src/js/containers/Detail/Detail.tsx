@@ -1,6 +1,5 @@
 import React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import {
   Container,
@@ -10,27 +9,8 @@ import {
   Header,
   Message
 } from 'semantic-ui-react'
+import QUERY from '../../queries/detailQuery'
 import ListItem from '../../Components/ListItem'
-
-const QUERY = gql`
-  query Thing($id: Int) {
-    thing(id: $id) {
-      id
-      name
-      creator {
-        id
-        name
-      }
-      license
-      description
-      added
-      modified
-      default_image {
-        url
-      }
-    }
-  }
-`
 
 const formatedDate = (stringDate: string): string => {
   const date = new Date(stringDate)

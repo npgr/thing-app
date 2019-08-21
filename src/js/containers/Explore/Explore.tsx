@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import gql from 'graphql-tag'
 import { useQuery } from '@apollo/react-hooks'
 import {
   Container,
@@ -11,17 +10,7 @@ import {
   Message
 } from 'semantic-ui-react'
 import Card from '../../Components/Card'
-
-const FIELDS = 'id, name, thumbnail, creator { name }'
-
-const QUERY = gql`
-  query {
-    validToken,
-    featured { ${FIELDS} },
-    newest { ${FIELDS} },
-    popular { ${FIELDS} }
-  }
-`
+import QUERY from '../../queries/exploreQuery'
 
 const selectOptions = [
   { key: 'pop', value: 'popular', text: 'Popular' },
